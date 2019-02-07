@@ -30,26 +30,43 @@
 
 		<plugins>
 			<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>0.21.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<images>
+							<image>
+								<alias>${project.artifactId}</alias>
+								<name>trxplorer/client-app</name>
+								<build>
+									<dockerFileDir>${project.basedir}</dockerFileDir>
+								</build>
+							</image>
+						</images>
+					</configuration>
+					<executions>
+						<execution>
+							<id>build</id>
+							<phase>install</phase>
+							<goals>
+								<goal>build</goal>
+							</goals>
+						</execution>
+					</executions>
+
+				</plugin>
+
+			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<!-- Use the latest released version: https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
-				<version>1.4</version>
+				<version>1.6</version>
 				<configuration>
 					<workingDirectory>${basedir}</workingDirectory>
 					<installDirectory>${node.installDirectory}</installDirectory>
 				</configuration>
 				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<phase>generate-sources</phase>
-						<configuration>
-							<nodeVersion>v6.10.2</nodeVersion>
-							<npmVersion>3.10.10</npmVersion>
-						</configuration>
-					</execution>
 					<execution>
 						<id>install node and yarn</id>
 						<goals>
@@ -57,8 +74,8 @@
 						</goals>
 						<phase>generate-sources</phase>
 						<configuration>
-							<nodeVersion>v6.10.2</nodeVersion>
-							<yarnVersion>v0.24.6</yarnVersion>
+							<nodeVersion>v11.9.0</nodeVersion>
+							<yarnVersion>v1.6.0</yarnVersion>
 						</configuration>
 					</execution>
 					<execution>
@@ -69,6 +86,16 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>yarn build</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<arguments>run build</arguments>
 						</configuration>
 					</execution>
 				</executions>
