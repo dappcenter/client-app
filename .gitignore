@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 .quasar
 semantic
-
+target
 
 # Editor directories and files
 .idea
