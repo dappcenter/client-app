@@ -45,7 +45,7 @@
   <q-tab slot="title" name="tab-holders" label="Holders" @select="requestHoldersInit()"/>
 
   <q-tab-pane name="tab-transfers">
-      <q-table class="ui striped table"
+      <q-table class="ui center aligned striped table"
             :data="transfers.serverData"
             :columns="transfers.columns"
             :pagination.sync="transfers.serverPagination"
@@ -66,7 +66,7 @@
   </q-tab-pane>
 
   <q-tab-pane name="tab-holders">
-          <q-table class="ui striped table"
+          <q-table class="ui center aligned striped table"
             :data="holders.serverData"
             :columns="holders.columns"
             :pagination.sync="holders.serverPagination"

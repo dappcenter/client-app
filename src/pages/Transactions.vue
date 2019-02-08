@@ -3,7 +3,7 @@
     <div class="ui fluid container">
       <div class="ui container">
       <h1 class="ui dividing header"><small><i class="ui exchange icon"></i>Transactions</small></h1>
-        <q-table class="ui striped table"
+        <q-table class="ui striped center aligned table"
             :data="serverData"
             :columns="columns"
             :pagination.sync="serverPagination"

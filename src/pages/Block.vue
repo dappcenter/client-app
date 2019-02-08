@@ -37,7 +37,7 @@
         </tbody>
       </table>
       <h2 class="ui dividing header"><small>Transactions</small></h2>
-        <q-table class="ui striped table"
+        <q-table class="ui center aligned striped table"
             :data="serverData"
             :columns="columns"
             :pagination.sync="serverPagination"

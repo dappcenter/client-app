@@ -78,7 +78,7 @@ USD VALUE
     </table>
   </q-tab-pane>
   <q-tab-pane name="tab-transactions">
-        <q-table class="ui striped table"
+        <q-table class="ui striped center aligned table"
             :data="transactions.serverData"
             :columns="transactions.columns"
             :pagination.sync="transactions.serverPagination"
@@ -97,7 +97,7 @@ USD VALUE
   </q-tab-pane>
 
   <q-tab-pane name="tab-transfers">
-  <q-table class="ui striped table"
+  <q-table class="ui striped center aligned table"
             :data="transfers.serverData"
             :columns="transfers.columns"
             :pagination.sync="transfers.serverPagination"
