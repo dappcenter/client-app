@@ -76,6 +76,13 @@ USD VALUE
         </tr>
       </tbody>
     </table>
+  <div class="ui icon small info message" v-if="!addressDetail.assets">
+    <div class="content">
+    <div class="header">
+      <i class="circle info icon"></i> No tokens yet for this account
+    </div>
+  </div>
+</div>
   </q-tab-pane>
   <q-tab-pane name="tab-transactions">
         <q-table class="ui striped center aligned table"
