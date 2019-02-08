@@ -15,3 +15,5 @@ export const SET_TOKENS = 'setTokens'
 export const SET_TOKEN = 'setToken'
 export const SET_TOKEN_HOLDERS = 'setTokenHolders'
 export const SET_TOKEN_TRANSFERS = 'setTokenTransfers'
+// STATS
+export const SET_TRX_PRICE = 'setTRXPrice'

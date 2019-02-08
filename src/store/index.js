@@ -5,6 +5,7 @@ import BlockModule from './Block.module'
 import AddressModule from './Address.module'
 import TransactionModule from './Transaction.module'
 import TokenModule from './Token.module'
+import StatsModule from './Stats.module'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ export default function (/* { ssrContext } */) {
       BlockModule,
       AddressModule,
       TransactionModule,
-      TokenModule
+      TokenModule,
+      StatsModule
     }
   })
 

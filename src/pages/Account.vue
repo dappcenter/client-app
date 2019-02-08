@@ -41,16 +41,16 @@ Tron power
 </div>
 </div>
 </div>
-<div class="ui center aligned column">
-<div style="margin-bottom: 0;"  class="ui mini green statistic">
-<div class="value">
-{{addressDetail.usdHolding}}$
-</div>
-<div class="label">
-USD VALUE
-</div>
-</div>
-</div>
+  <div class="ui center aligned column" v-if="addressDetail.balance>0 && usdValue">
+    <div style="margin-bottom: 0;"  class="ui mini green statistic">
+      <div class="value">
+      {{usdValue}}$
+      </div>
+      <div class="label">
+      USD VALUE
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 </div>
@@ -134,7 +134,9 @@ USD VALUE
 
 <script>
 import { mapGetters } from 'vuex'
-import {FETCH_ADDRESS_DETAIL, FETCH_ADDRESS_TRANSACTIONS, FETCH_ADDRESS_TRANSFERS} from '../store/action.type'
+import {FETCH_ADDRESS_DETAIL, FETCH_ADDRESS_TRANSACTIONS, FETCH_ADDRESS_TRANSFERS, FETCH_TRX_PRICE} from '../store/action.type'
+import tronweb from 'tronweb'
+
 export default {
   name: 'AddressDetailPage',
   meta () {
@@ -147,6 +149,7 @@ export default {
   },
   data () {
     return {
+      usdValue: null,
       transactions: {
         filter: '',
         loading: false,
@@ -296,12 +299,16 @@ export default {
     }
   },
   mounted () {
+    this.$store.dispatch(FETCH_TRX_PRICE).then(() => {
+      this.usdValue = Number(this.trxPrice.price_usd * (Number(tronweb.fromSun(this.addressDetail.balance)))).toFixed(3)
+    })
   },
   computed: {
     ...mapGetters([
       'addressDetail',
       'addressTxs',
-      'addressTransfers'
+      'addressTransfers',
+      'trxPrice'
     ])
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext }) {
