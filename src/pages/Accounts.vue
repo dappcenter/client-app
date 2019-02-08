@@ -3,7 +3,7 @@
     <div class="ui fluid container">
       <div class="ui container">
       <h1 class="ui dividing header"><small><i class="ui user icon"></i>Accounts</small></h1>
-        <q-table class="ui striped table"
+        <q-table class="ui striped center aligned table"
             :data="serverData"
             :columns="columns"
             :pagination.sync="serverPagination"
@@ -14,6 +14,7 @@
           >
           <q-tr slot="body" slot-scope="props">
             <q-td key="address" :props="props"><a :href="`/address/${props.row.address}`">{{ props.row.address }}</a></q-td>
+            <q-td key="name" :props="props">{{ props.row.name && props.row.name.length>0 || '-' }}</q-td>
             <q-td key="balance" :props="props">{{ props.row.balance|fromSun }}</q-td>
             <q-td key="age" :props="props" :title="props.row.created|moment('dddd, MMMM Do YYYY, h:mm:ss a')">{{ props.row.created | moment("from") }}</q-td>
           </q-tr>
@@ -57,9 +58,16 @@ export default {
           sortable: false
         },
         {
+          name: 'name',
+          required: true,
+          label: 'Name',
+          field: 'name',
+          sortable: false
+        },
+        {
           name: 'balance',
           required: true,
-          label: 'Balance',
+          label: 'TRX balance',
           field: 'balance',
           sortable: false
         },
