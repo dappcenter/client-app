@@ -15,7 +15,7 @@
           <q-tr slot="body" slot-scope="props">
             <q-td key="name" :props="props"><a :href="`/token/${props.row.id}`">{{ props.row.name }}</a></q-td>
             <q-td key="type" :props="props" ><span class="ui label"> <span v-if="props.row.type==0">TRC10</span><span v-if="props.row.type==1">TRC20</span></span></q-td>
-            <q-td key="supply" :props="props">{{ props.row.supply }}</q-td>
+            <q-td key="supply" :props="props">{{ props.row.supply|toLocaleString }}</q-td>
           </q-tr>
 
         </q-table>
@@ -68,7 +68,7 @@ export default {
         {
           name: 'supply',
           required: true,
-          label: 'Supply',
+          label: 'Total Supply',
           align: 'center',
           field: 'supply',
           sortable: false

@@ -4,7 +4,7 @@
       <br><br>
       <div class="ui container">
       <h1 class="ui dividing header">
-        <small>Token: <small>{{token.name}}</small></small>
+        <small>Token: <small>{{token.name}} <span v-if="token.abbr">({{token.abbr}})</span></small></small>
       </h1>
 <table class="ui compact definition table ">
   <tbody>
@@ -17,20 +17,24 @@
       <td><div class="ui label"><span v-if="token.type==0">TRC10</span><span v-if="token.type==1">TRC20</span></div></td>
     </tr>
     <tr>
-      <td>Participation period</td>
-      <td>Start: <small class="timestamp">{{token.startTime}}</small>  &nbsp;&nbsp;&nbsp; End: <small class="timestamp">{{token.endTime}}</small></td>
+      <td>Participation period (ICO)</td>
+      <td>Start: <small class="timestamp">{{token.startTime|moment('from')}}</small>  &nbsp;&nbsp;&nbsp; End: <small class="timestamp">{{token.endTime|moment('from')}}</small></td>
     </tr>
     <tr>
       <td>Total supply</td>
-      <td>{{token.supply}}</td>
+      <td>{{token.supply|toLocaleString}}</td>
+    </tr>
+    <tr>
+      <td>Issue Price</td>
+      <td> {{issuePrice|fromSun|toLocaleString}} TRX</td>
+    </tr>
+    <tr>
+      <td>Precision</td>
+      <td>{{token.precision}}</td>
     </tr>
     <tr>
       <td>URL</td>
       <td><a class="url" :href="`${token.url}`" rel="noreferrer noopener" target="_blank">{{token.url}}</a></td>
-    </tr>
-    <tr>
-      <td>Issue Price</td>
-      <td> TRX</td>
     </tr>
     <tr>
       <td>Description</td>
@@ -59,7 +63,7 @@
             <q-td key="age" :props="props">{{ props.row.timestamp | moment("DD-MM-YYYY HH:mm:ss") }}</q-td>
             <q-td key="from" :props="props"><a :href="`/address/${props.row.from}`">{{ props.row.from|truncate(20) }}</a></q-td>
             <q-td key="to" :props="props"><a :href="`/address/${props.row.to}`">{{ props.row.to|truncate(20) }}</a></q-td>
-            <q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
+            <q-td key="amount" :props="props">{{ props.row.amount|toLocaleString }}</q-td>
             <q-td key="confirmed" :props="props"><span class="ui small green label" v-if="props.row.confirmed">CONFIRMED</span><span class="ui small red label" v-if="!props.row.confirmed">UNCONFIRMED</span></q-td>
           </q-tr>
     </q-table>
@@ -98,7 +102,7 @@ export default {
   name: 'TokenPage',
   meta () {
     return {
-      title: `Tron token: ${this.token.name} - ${this.token.id}  token tracker, price and informations`,
+      title: this.getMetaTitle(),
       meta: {
         description: { name: 'description', content: 'Check all existing account currently on Tron blockchain' }
       }
@@ -197,6 +201,13 @@ export default {
     }
   },
   methods: {
+    getMetaTitle () {
+      if (this.token.abbr) {
+        return `Tron token: ${this.token.name} (${this.token.abbr}) - ${this.token.id}  token tracker, price and informations`
+      } else {
+        return `Tron token: ${this.token.name} - ${this.token.id}  token tracker, price and informations`
+      }
+    },
     requestHoldersInit () {
       this.requestHolders({
         pagination: this.holders.serverPagination,
@@ -235,6 +246,9 @@ export default {
   mounted () {
   },
   computed: {
+    issuePrice () {
+      return Number(this.token.trxNum / this.token.num).toFixed(2)
+    },
     ...mapGetters([
       'token',
       'tokenTransfers',
