@@ -19,6 +19,10 @@
             <td><span class="ui label">{{tx.typeLabel}}</span></td>
           </tr>
           <tr>
+            <td>From</td>
+            <td><a :href="`/address/${tx.from}`">{{tx.from}}</a></td>
+          </tr>
+          <tr>
             <td>Timestamp</td>
             <td>{{tx.timestamp|moment("from")}} [{{tx.timestamp|moment("DD-MM-YYYY HH:mm:ss")}}]</td>
           </tr>
