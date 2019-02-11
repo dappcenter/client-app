@@ -44,7 +44,7 @@ Tron power
   <div class="ui center aligned column" v-if="addressDetail.balance>0 && usdValue">
     <div style="margin-bottom: 0;"  class="ui mini green statistic">
       <div class="value">
-      {{usdValue}}$
+      {{usdValue|toLocaleString}}$
       </div>
       <div class="label">
       USD VALUE
@@ -66,13 +66,14 @@ Tron power
     <table class="ui striped table"  v-if="addressDetail.assets">
       <thead>
         <tr class="center aligned">
+          <th >ID</th>
           <th >Token</th>
           <th >Balance</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(value,key) in addressDetail.assets" :key="key" class="center aligned" >
-          <td>{{key}}</td><td>{{value|toLocaleString}}</td>
+          <td><a :href="'/token/'+key.split(':')[0]">{{key|tokenId('id')}}</a></td><td>{{key|tokenId}}</td><td>{{value|toLocaleString}}</td>
         </tr>
       </tbody>
     </table>
@@ -96,9 +97,9 @@ Tron power
           >
           <q-tr slot="body" slot-scope="props" :props="props">
             <q-td key="hash" :props="props"><a :href="`/tx/${props.row.hash}`">{{props.row.hash|truncate}}</a></q-td>
-            <q-td key="age" :props="props">{{ props.row.timestamp | moment("DD-MM-YYYY HH:mm:ss") }}</q-td>
-            <q-td key="type" :props="props">{{ props.row.type }}</q-td>
             <q-td key="confirmed" :props="props"><span class="ui small green label" v-if="props.row.confirmed">CONFIRMED</span><span class="ui small red label" v-if="!props.row.confirmed">UNCONFIRMED</span></q-td>
+            <q-td key="age" :props="props">{{ props.row.timestamp | moment("DD-MM-YYYY HH:mm:ss") }}</q-td>
+            <q-td key="type" :props="props"><span class="ui small label">{{ props.row.typeLabel }}</span></q-td>
           </q-tr>
         </q-table>
   </q-tab-pane>
@@ -118,7 +119,7 @@ Tron power
             <q-td key="age" :props="props">{{ props.row.timestamp | moment("DD-MM-YYYY HH:mm:ss") }}</q-td>
             <q-td key="from" :props="props"><a :href="`/address/${props.row.from}`">{{ props.row.from|truncate(20) }}</a></q-td>
             <q-td key="to" :props="props"><a :href="`/address/${props.row.to}`">{{ props.row.to|truncate(20) }}</a></q-td>
-            <q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
+            <q-td key="amount" :props="props">{{ props.row.amount|toLocaleString }} <span :title="props.row.token|tokenId('id')"><i>{{props.row.token|tokenId}}</i></span><i v-if="!props.row.token"> TRX</i></q-td>
             <q-td key="confirmed" :props="props"><span class="ui small green label" v-if="props.row.confirmed">CONFIRMED</span><span class="ui small red label" v-if="!props.row.confirmed">UNCONFIRMED</span></q-td>
           </q-tr>
         </q-table>
@@ -169,6 +170,14 @@ export default {
             sortable: false
           },
           {
+            name: 'confirmed',
+            required: true,
+            label: 'Status',
+            align: 'left',
+            field: 'confirmed',
+            sortable: false
+          },
+          {
             name: 'age',
             required: true,
             label: 'Timestamp',
@@ -182,14 +191,6 @@ export default {
             label: 'Type',
             align: 'center',
             field: 'type',
-            sortable: false
-          },
-          {
-            name: 'confirmed',
-            required: true,
-            label: 'Status',
-            align: 'left',
-            field: 'confirmed',
             sortable: false
           }
         ]
@@ -300,7 +301,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch(FETCH_TRX_PRICE).then(() => {
-      this.usdValue = Number(this.trxPrice.price_usd * (Number(tronweb.fromSun(this.addressDetail.balance)))).toFixed(3)
+      this.usdValue = Number(this.trxPrice.price_usd * (Number(tronweb.fromSun(this.addressDetail.balance))))
     })
   },
   computed: {

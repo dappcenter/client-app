@@ -81,7 +81,7 @@
           >
         <q-tr slot="body" slot-scope="props" :props="props">
           <q-td key="address" :props="props"><a :href="`/address/${props.row.address}`">{{props.row.address}}</a></q-td>
-          <q-td key="quantity" :props="props">{{ props.row.assets[$route.params.id]|fromSun|toLocaleString}}</q-td>
+          <q-td key="quantity" :props="props">{{ props.row.assets[$route.params.id+':'+token.name]|toLocaleString}}</q-td>
       </q-tr>
     </q-table>
   </q-tab-pane>
@@ -247,7 +247,7 @@ export default {
   },
   computed: {
     issuePrice () {
-      return Number(this.token.trxNum / this.token.num).toFixed(2)
+      return Number(this.token.trxNum / this.token.num)
     },
     ...mapGetters([
       'token',

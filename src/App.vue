@@ -17,7 +17,21 @@ Vue.filter('fromSun', (value) => {
   return Number(tronweb.fromSun(value))
 })
 Vue.filter('toLocaleString', (value) => {
-  return value.toLocaleString()
+  return value.toLocaleString(undefined, { maximumFractionDigits: 20 })
+})
+Vue.filter('tokenId', (value, type) => {
+  if (!value) {
+    return
+  }
+  if (value.indexOf(':') === -1) {
+    return value
+  }
+  const c = value.split(':')
+  if (type === 'id') {
+    return c[0]
+  } else {
+    return c[1]
+  }
 })
 
 export default {
