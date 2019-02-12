@@ -7,10 +7,12 @@
 <script>
 import Vue from 'vue'
 import tronweb from 'tronweb'
-import 'semantic-ui/dist/semantic.min.css'
+// import 'semantic-ui/dist/semantic.min.css'
 import $ from 'jquery'
 import axios from 'axios'
+import VueAnalytics from 'vue-analytics'
 
+const isProd = process.env.NODE_ENV === 'production'
 Vue.use(require('vue-truncate-filter'))
 Vue.use(require('vue-moment'))
 Vue.filter('fromSun', (value) => {
@@ -44,6 +46,14 @@ export default {
     }
   },
   mounted () {
+    Vue.use(VueAnalytics, {
+      id: 'UA-1016076-27',
+      router: this.$router,
+      debug: {
+        enabled: !isProd,
+        sendHitTask: isProd
+      }
+    })
     $(window).resize(() => {
       this.resizeBckgd()
     })
