@@ -27,7 +27,7 @@
 <h1 class="ui header">
 TRXPL<i class="search icon" style="margin-right:-5px;"></i>RER.io
 </h1>
-<h2><a name="search"></a><a name="search"></a>Tron Blockchain Explorer</h2>
+<h2><a name="search"></a><a name="search"></a><small><small>Tron Blockchain Explorer</small></small></h2>
 <!--
 <form action="/search" method="post">
 <div class="ui category search">

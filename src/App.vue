@@ -81,6 +81,9 @@ line-height: 1.4;
 height: 100%;
 position: relative
 }
+h1, h2, h3, h4, h5 {
+font-family: 'Exo 2';
+}
 [v-cloak] {display: none}
 .ui.secondary.pointing.menu{
 border-bottom:0px;
