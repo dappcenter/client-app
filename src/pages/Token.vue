@@ -6,42 +6,43 @@
       <h1 class="ui dividing header">
         <small>Token: <small>{{token.name}} <span v-if="token.abbr">({{token.abbr}})</span></small></small>
       </h1>
-<table class="ui compact definition table ">
-  <tbody>
-    <tr>
-      <td>Issuer</td>
-      <td><a :href="`/address/${token.issuer}`">{{token.issuer}}</a></td>
-    </tr>
-    <tr>
-      <td>Token type</td>
-      <td><div class="ui label"><span v-if="token.type==0">TRC10</span><span v-if="token.type==1">TRC20</span></div></td>
-    </tr>
-    <tr>
-      <td>Participation period (ICO)</td>
-      <td>Start: <small class="timestamp">{{token.startTime|moment('from')}}</small>  &nbsp;&nbsp;&nbsp; End: <small class="timestamp">{{token.endTime|moment('from')}}</small></td>
-    </tr>
-    <tr>
-      <td>Total supply</td>
-      <td>{{token.supply|toLocaleString}}</td>
-    </tr>
-    <tr>
-      <td>Issue Price</td>
-      <td> {{issuePrice|fromSun|toLocaleString}} TRX</td>
-    </tr>
-    <tr>
-      <td>Precision</td>
-      <td>{{token.precision}}</td>
-    </tr>
-    <tr>
-      <td>URL</td>
-      <td><a class="url" :href="`${token.url}`" rel="noreferrer noopener" target="_blank">{{token.url}}</a></td>
-    </tr>
-    <tr>
-      <td>Description</td>
-      <td>{{token.description}}</td>
-    </tr>
-  </tbody>
-</table>
+
+      <table class="ui compact definition table ">
+        <tbody>
+          <tr>
+            <td>Issuer</td>
+            <td><a :href="`/address/${token.issuer}`">{{token.issuer}}</a></td>
+          </tr>
+          <tr>
+            <td>Token type</td>
+            <td><div class="ui label"><span v-if="token.type==0">TRC10</span><span v-if="token.type==1">TRC20</span></div></td>
+          </tr>
+          <tr>
+            <td>Participation period (ICO)</td>
+            <td>Start: <small class="timestamp">{{token.startTime|moment('from')}}</small>  &nbsp;&nbsp;&nbsp; End: <small class="timestamp">{{token.endTime|moment('from')}}</small></td>
+          </tr>
+          <tr>
+            <td>Total supply</td>
+            <td>{{token.supply|toLocaleString}}</td>
+          </tr>
+          <tr>
+            <td>Issue Price</td>
+            <td> {{issuePrice|fromSun|toLocaleString}} TRX</td>
+          </tr>
+          <tr>
+            <td>Precision</td>
+            <td>{{token.precision}}</td>
+          </tr>
+          <tr v-if="token.url">
+            <td>URL</td>
+            <td><a class="url" :href="`${token.url}`" rel="noreferrer noopener" target="_blank">{{token.url}}</a></td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>{{token.description}}</td>
+          </tr>
+        </tbody>
+      </table>
 
 <q-tabs :inverted="true">
 

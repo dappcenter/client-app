@@ -4,6 +4,7 @@ import { SET_TOKENS,SET_TOKEN, SET_TOKEN_HOLDERS, SET_TOKEN_TRANSFERS } from './
 import axios from 'axios'
 import CONFIG from '../config'
 import Vue from 'vue'
+import ValidUrl from 'valid-url'
 
 const state = {
   tokens: {},
@@ -63,6 +64,22 @@ const mutations = {
     state.tokens = tokens
   },
   [SET_TOKEN](state, token) {
+
+    if (!token){
+      return;
+    }
+
+    //validate url
+    if (token.url){
+      if ( (!ValidUrl.isWebUri(token.url))) {
+        if (ValidUrl.isWebUri('http://'  + token.url)){
+          token.url = 'http://' + token.url
+        }else{
+          token.url = null
+        }
+      }
+    }
+
     state.token = token
   },
   [SET_TOKEN_HOLDERS](state, holders) {

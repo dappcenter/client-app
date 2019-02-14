@@ -18,6 +18,7 @@
     "semantic-ui": "^2.4.2",
     "taucharts": "^2.6.5",
     "tronweb": "^2.1.31",
+    "valid-url": "^1.0.9",
     "vue-analytics": "^5.16.2",
     "vue-i18n": "^7.3.3",
     "vue-moment": "^4.0.0",
