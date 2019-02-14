@@ -208,18 +208,18 @@ import jdenticon from 'jdenticon'
 
 export default {
   name: 'AddressDetailPage',
-  identicon: {},
   meta () {
     return {
-      title: `Tron address ${this.getMetaTitle()} - ${this.addressDetail.address} informations`,
+      title: `Tron wallet address ${this.getMetaTitle()} - ${this.addressDetail.address} informations`,
       meta: {
-        description: { name: 'description', content: `Get all informations about address ${this.addressDetail.address} on Tron blockchain` }
+        description: { name: 'description', content: `Get all informations about ${this.addressDetail.address} wallet address on Tron blockchain` }
       }
     }
   },
   data () {
     return {
       usdValue: null,
+      identicon: {},
       transactions: {
         filter: '',
         loading: false,

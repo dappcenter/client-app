@@ -34,9 +34,9 @@ import {FETCH_ACCOUNTS} from '../store/action.type'
 export default {
   name: 'AccountsPage',
   meta: {
-    title: 'Tron account and address list',
+    title: 'Tron account and wallet address list',
     meta: {
-      description: { name: 'description', content: 'Check all existing account currently on Tron blockchain' }
+      description: { name: 'description', content: 'Check all existing accounts currently on Tron blockchain' }
     }
   },
   data () {
