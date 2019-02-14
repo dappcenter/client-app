@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "jdenticon": "^2.1.1",
     "jquery": "^3.3.1",
     "semantic-ui": "^2.4.2",
+    "taucharts": "^2.6.5",
     "tronweb": "^2.1.31",
     "vue-analytics": "^5.16.2",
     "vue-i18n": "^7.3.3",
@@ -23,6 +25,10 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
+    "devtron": "1.4.0",
+    "electron": "3.0.8",
+    "electron-debug": "2.0.0",
+    "electron-devtools-installer": "2.2.4",
     "eslint": "^4.18.2",
     "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^4.0.1",
