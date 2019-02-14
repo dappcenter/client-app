@@ -4,10 +4,63 @@
       <br><br>
       <div class="ui container">
       <h1 class="ui dividing header">
-        <small>Token: <small>{{token.name}} <span v-if="token.abbr">({{token.abbr}})</span></small></small>
+        <small>Token</small>
       </h1>
-
-      <table class="ui compact definition table ">
+            <div class="ui vertical stripe segment" style="background: #f5f5f5;opacity: 0.7;">
+                <div class="ui grid ">
+                    <div class="column">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><div v-html="identicon"></div></td>
+                                    <td>
+                                        <h2 class="ui header nomobile">
+                                            <small>{{token.name}} ({{token.abbr}}) <small ><small>[{{token.id}}]</small></small></small>
+                                        </h2>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--
+                        <div class="ui fluid grid">
+                            <div class="one wide column"></div>
+                            <div class="eleven wide column">
+                                <div class="ui stackable three column centered grid container">
+                                    <div class="ui aligned column">
+                                        <div style="margin-bottom: 0;" class="ui mini red statistic">
+                                            <div class="value">
+                                            </div>
+                                            <div class="label">
+                                                Holders
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui center aligned column">
+                                        <div style="margin-bottom: 0;" class="ui mini orange statistic">
+                                            <div class="value"></div>
+                                            <div class="label">
+                                                Total Supply
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui center aligned column" >
+                                        <div style="margin-bottom: 0;" class="ui mini green statistic">
+                                            <div class="value">
+                                            </div>
+                                            <div class="label">
+                                                Transfers last 24h
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        !-->
+                    </div>
+                </div>
+            </div>
+      <div class="ui segment">
+      <table class="ui compact very basic table ">
         <tbody>
           <tr>
             <td>Issuer</td>
@@ -43,6 +96,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
 
 <q-tabs :inverted="true">
 
@@ -99,6 +153,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import {FETCH_TOKEN, FETCH_TOKEN_HOLDERS, FETCH_TOKEN_TRANSFERS} from '../store/action.type'
+import jdenticon from 'jdenticon'
+
 export default {
   name: 'TokenPage',
   meta () {
@@ -111,6 +167,7 @@ export default {
   },
   data () {
     return {
+      identicon: {},
       holders: {
         filter: '',
         loading: false,
@@ -245,6 +302,8 @@ export default {
     }
   },
   mounted () {
+    // generate jdenticon
+    this.identicon = jdenticon.toSvg(this.token.id, 40)
   },
   computed: {
     issuePrice () {
