@@ -167,7 +167,7 @@ export default {
   },
   data () {
     return {
-      identicon: {},
+      identicon: '',
       holders: {
         filter: '',
         loading: false,

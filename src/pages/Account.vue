@@ -219,7 +219,7 @@ export default {
   data () {
     return {
       usdValue: null,
-      identicon: {},
+      identicon: '',
       transactions: {
         filter: '',
         loading: false,
