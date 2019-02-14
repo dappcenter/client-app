@@ -32,7 +32,7 @@
           </tr>
           <tr>
             <td>Size</td>
-            <td>{{block.size}}</td>
+            <td>{{block.size|toLocaleString}} bytes</td>
           </tr>
         </tbody>
       </table>
