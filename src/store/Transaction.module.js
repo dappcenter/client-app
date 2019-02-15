@@ -23,13 +23,19 @@ const actions = {
   [FETCH_TRANSACTIONS]({ commit },{start}) {
     return axios.get(`${CONFIG.api}/transactions?start=${start}`).then((res) => {
       commit(SET_TRANSACTIONS,res.data)
+      return res.data
     }).catch((e) => {
       console.error(e)
     })
   },
-  [FETCH_TX]({ commit },{hash}) {
+  [FETCH_TX]({ commit, state },{hash}) {
+    // do not fetch if hash already = current state
+    if (state.tx && state.tx.hash === hash) {
+      return Promise.resolve(state.tx)
+    }
     return axios.get(`${CONFIG.api}/transaction/${hash}`).then((res) => {
       commit(SET_TX, res.data)
+      return res.data
     }).catch((e) => {
       console.error(e)
     })

@@ -19,3 +19,5 @@ export const FETCH_TOKEN_HOLDERS = 'fetchTokenHolders'
 export const FETCH_TOKEN_TRANSFERS = 'fetchTokenTransfers'
 // STATS
 export const FETCH_TRX_PRICE = 'fetchTRXPrice'
+// SEARCH
+export const GLOBAL_SEARCH = 'globalSearch'

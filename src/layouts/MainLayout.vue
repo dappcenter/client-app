@@ -51,6 +51,21 @@
     </q-layout-drawer>
 
     <q-page-container>
+      <div v-if="$route.path!='/'">
+      <br>
+        <div class="ui container">
+          <div class="ui stackable grid">
+              <div class="five wide right floated column">
+                  <div class="ui form">
+                      <div class="ui fluid large icon input">
+                        <input v-on:keyup.enter="doSearch()" type="text" v-model="search" placeholder="Search hash, token, address ...">
+                        <i class="inverted circular search link icon"  @click="doSearch()"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
       <router-view />
     </q-page-container>
 <q-btn
@@ -67,7 +82,7 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
+import { GLOBAL_SEARCH } from '../store/action.type'
 export default {
   name: 'MainLayout',
   meta: {
@@ -77,13 +92,15 @@ export default {
   },
   data () {
     return {
+      search: '',
       leftDrawerOpen: false
     }
   },
   methods: {
-    openURL,
-    goTo () {
-      this.$router.push('/blocks')
+    doSearch () {
+      this.$store.dispatch(GLOBAL_SEARCH, {query: this.search}).then(() => {
+        this.search = ''
+      })
     }
   }
 }

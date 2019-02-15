@@ -36,9 +36,13 @@ const actions = {
       console.error(e)
     })
   },
-  [FETCH_TOKEN]({ commit },{id}) {
+  [FETCH_TOKEN]({ commit, state },{id}) {
+    if (state.token && state.token.id === id) {
+      return Promise.resolve(state.token)
+    }
     return axios.get(`${CONFIG.api}/token/${id}`).then((res) => {
       commit(SET_TOKEN, res.data)
+      return res.data
     }).catch((e) => {
       console.error(e)
     })

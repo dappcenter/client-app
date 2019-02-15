@@ -6,6 +6,7 @@ import AddressModule from './Address.module'
 import TransactionModule from './Transaction.module'
 import TokenModule from './Token.module'
 import StatsModule from './Stats.module'
+import SearchModule from './Search.module'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,8 @@ export default function (/* { ssrContext } */) {
       AddressModule,
       TransactionModule,
       TokenModule,
-      StatsModule
+      StatsModule,
+      SearchModule
     }
   })
 

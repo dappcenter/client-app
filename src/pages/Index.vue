@@ -28,17 +28,14 @@
 TRXPL<i class="search icon" style="margin-right:-5px;"></i>RER.io
 </h1>
 <h2><a name="search"></a><a name="search"></a><small><small>Tron Blockchain Explorer</small></small></h2>
-<!--
-<form action="/search" method="post">
 <div class="ui category search">
 <div class="ui massive icon input">
-<input name="q" class="prompt" type="text" placeholder="Address, Hash, Token ...">
+<input v-on:keyup.enter="doSearch()" v-model="search" class="prompt" type="text" placeholder="Address, Hash, Token ...">
 <i class="search icon"></i>
 </div>
 <div class="results"></div>
 </div>
-</form>
--->
+
 </div>
 </div>
 </div>
@@ -48,6 +45,7 @@ TRXPL<i class="search icon" style="margin-right:-5px;"></i>RER.io
 </style>
 
 <script>
+import { GLOBAL_SEARCH } from '../store/action.type'
 export default {
   name: 'PageIndex',
   meta: {
@@ -56,9 +54,18 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      search: ''
+    }
   },
   mounted () {
+  },
+  methods: {
+    doSearch () {
+      this.$store.dispatch(GLOBAL_SEARCH, {query: this.search}).then(() => {
+        this.search = ''
+      })
+    }
   }
 }
 </script>

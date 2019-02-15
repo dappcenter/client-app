@@ -1,56 +1,85 @@
 <template>
   <q-page class="flex">
-<div class="ui fluid container" v-cloak>
-<div class="eyecatcher"></div>
-<div style="border-bottom:none;" class="ui vertical masthead center aligned segment hero">
-<div class="ui container homemenu">
-<div class="ui stackable large secondary pointing menu">
-<a class="active item nomobile" href="#search">Home</a>
-<a class="item nomobile" href="/blocks">Blocks</a>
-<a class="item nomobile" href="/transactions">Transactions</a>
-<!--<a class="item nomobile" href="/nodes">Nodes</a>-->
-<!--<a class="item nomobile" href="/representatives" >Representatives</a>-->
-<!--<a class="item nomobile" href="/votes" >Votes</a>-->
-<a class="item nomobile" href="/accounts">Accounts</a>
-<!--<a class="item nomobile" href="/tokens">Tokens</a>-->
-<!--<a class="item nomobile" href="/markets">Markets</a>-->
-<!--<a class="item nomobile" href="/charts">Charts</a>-->
-<span class="mobile-only">
-<a id="mobile-menu" class="item right floated " href="#" ><i class="sidebar icon"></i> Menu</a>
-</span>
-</div>
-</div>
-<br><br>
-<div class="ui text container">
-<img alt="" src="/statics/images/logo_30.png" />
-<h1 class="ui header">
-TRXPL<i class="search icon" style="margin-right:-5px;"></i>RER.io
-</h1>
-<h2><a name="search"></a><a name="search"></a>Tron Blockchain Explorer</h2>
-<form action="/search" method="post">
-<div class="ui category search">
-<div class="ui massive icon input">
-<input name="q" class="prompt" type="text" placeholder="Address, Hash, Token ...">
-<i class="search icon"></i>
-</div>
-<div class="results"></div>
-</div>
-</form>
-</div>
-</div>
-</div>
+    <div class="ui fluid container">
+      <div class="ui container">
+      <h1 class="ui dividing header"><small><i class="ui search icon"></i>Search</small></h1>
+          <div class="ui segment">
+            <b v-if="isGlobalSearching">Searching for "{{globalSearchResult.query}}" ...</b>
+            <q-progress indeterminate stripe color="teal" v-if="isGlobalSearching"></q-progress>
+            <div class="ui info message" v-if="!isGlobalSearching && globalSearchResult.query">
+              <div class="header">
+                <i class="ui info circle icon"></i>{{globalSearchResult.result.total}} results found for the query: "{{globalSearchResult.query}}"
+              </div>
+            </div>
+              <div class="ui list">
+                <div class="item" v-if="globalSearchResult.result.blocks.length>0">
+                  <i class="cube icon"></i>
+                  <div class="content">
+                    <div class="header">Block</div>
+                    <div class="list">
+                      <div class="item">
+                        <i class="file icon"></i>
+                        <div class="content">
+                          <div class="description">Your site's theme</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item" v-if="globalSearchResult.result.accounts.length>0">
+                  <i class="icon user"></i>
+                  <div class="content">
+                    <div class="header">Accounts</div>
+                    <div class="list">
+                      <div class="item" v-for="(account,key) in globalSearchResult.result.accounts" :key="key">
+                        <i class="file icon"></i>
+                        <div class="content">
+                          <div class="description">
+                            <a :href="`/address/${account.address}`">{{account.name}} - {{account.address}}</a>
+                            <br><br>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item" v-if="globalSearchResult.result.tokens.length>0">
+                  <i class="database icon"></i>
+                  <div class="content">
+                    <div class="header">Tokens</div>
+                       <div class="list">
+                      <div class="item" v-for="(token,key) in globalSearchResult.result.tokens" :key="key">
+                        <i class="file icon"></i>
+                        <div class="content">
+                          <div class="description"><a :href="`/token/${token.id}`">{{token.name}} - [{{token.id}}]</a> <br> {{token.description}} <br><br></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
   </q-page>
 </template>
 <style>
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'PageIndex',
+  name: 'SearchPage',
   data () {
     return {}
   },
   mounted () {
+  },
+  computed: {
+    ...mapGetters([
+      'globalSearchResult',
+      'isGlobalSearching'
+    ])
   }
 }
 </script>

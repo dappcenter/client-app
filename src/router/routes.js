@@ -12,7 +12,8 @@ const routes = [
       { path: '/accounts', component: () => import('pages/Accounts.vue') },
       { path: '/address/:address', component: () => import('pages/Account.vue') },
       { path: '/tokens', component: () => import('pages/Tokens.vue') },
-      { path: '/token/:id', component: () => import('pages/Token.vue') }
+      { path: '/token/:id', component: () => import('pages/Token.vue') },
+      { path: '/search', component: () => import('pages/Search.vue') }
     ]
   }
 ]

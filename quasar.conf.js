@@ -42,6 +42,7 @@ module.exports = function (ctx) {
     // framework: 'all' --- includes everything; for dev only!
     framework: {
       components: [
+        'QProgress',
         'QTabs',
         'QTab',
         'QTabPane',
@@ -49,6 +50,7 @@ module.exports = function (ctx) {
         'QTh',
         'QTr',
         'QTd',
+        'QInput',
         'QTableColumns',
         'QJumbotron',
         'QSlider',

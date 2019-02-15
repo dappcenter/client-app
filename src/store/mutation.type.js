@@ -17,3 +17,5 @@ export const SET_TOKEN_HOLDERS = 'setTokenHolders'
 export const SET_TOKEN_TRANSFERS = 'setTokenTransfers'
 // STATS
 export const SET_TRX_PRICE = 'setTRXPrice'
+// SEARCH
+export const SET_GLOBAL_SEARCH_RESULT = 'setGlobalSearchResult'
