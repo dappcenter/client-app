@@ -17,10 +17,10 @@
                   <div class="content">
                     <div class="header">Block</div>
                     <div class="list">
-                      <div class="item">
+                      <div class="item" v-for="(block,key) in globalSearchResult.result.blocks" :key="key">
                         <i class="file icon"></i>
                         <div class="content">
-                          <div class="description">Your site's theme</div>
+                          <a :href="`/block/${block.height}`">{{block.height}} - {{block.hash}}</a>
                         </div>
                       </div>
                     </div>
